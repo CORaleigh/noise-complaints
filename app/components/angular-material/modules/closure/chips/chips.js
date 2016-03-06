@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.6
+ * v1.0.0-rc3
  */
 goog.provide('ng.material.components.chips');
 goog.require('ng.material.components.autocomplete');
@@ -271,9 +271,9 @@ function MdChipsCtrl ($scope, $mdConstant, $log, $element, $timeout) {
 MdChipsCtrl.$inject = ["$scope", "$mdConstant", "$log", "$element", "$timeout"];
 
 /**
- * Handles the keydown event on the input element: by default <enter> appends
- * the buffer to the chip list, while backspace removes the last chip in the
- * list if the current buffer is empty.
+ * Handles the keydown event on the input element: <enter> appends the
+ * buffer to the chip list, while backspace removes the last chip in the list
+ * if the current buffer is empty.
  * @param event
  */
 MdChipsCtrl.prototype.inputKeydown = function(event) {
@@ -284,25 +284,19 @@ MdChipsCtrl.prototype.inputKeydown = function(event) {
     return;
   }
 
-  if (event.keyCode === this.$mdConstant.KEY_CODE.BACKSPACE) {
-    if (chipBuffer) return;
-    event.preventDefault();
-    event.stopPropagation();
-    if (this.items.length) this.selectAndFocusChipSafe(this.items.length - 1);
-    return;
-  }
-
-  // By default <enter> appends the buffer to the chip list.
-  if (!this.separatorKeys || this.separatorKeys.length < 1) {
-    this.separatorKeys = [this.$mdConstant.KEY_CODE.ENTER];
-  }
-
-  // Support additional separator key codes in an array of `md-separator-keys`.
-  if (this.separatorKeys.indexOf(event.keyCode) !== -1) {
-    if ((this.hasAutocomplete && this.requireMatch) || !chipBuffer) return;
-    event.preventDefault();
-    this.appendChip(chipBuffer);
-    this.resetChipBuffer();
+  switch (event.keyCode) {
+    case this.$mdConstant.KEY_CODE.ENTER:
+      if ((this.hasAutocomplete && this.requireMatch) || !chipBuffer) break;
+      event.preventDefault();
+      this.appendChip(chipBuffer);
+      this.resetChipBuffer();
+      break;
+    case this.$mdConstant.KEY_CODE.BACKSPACE:
+      if (chipBuffer) break;
+      event.preventDefault();
+      event.stopPropagation();
+      if (this.items.length) this.selectAndFocusChipSafe(this.items.length - 1);
+      break;
   }
 };
 
@@ -347,7 +341,7 @@ MdChipsCtrl.prototype.getPlaceholder = function() {
   // Allow `secondary-placeholder` to be blank.
   var useSecondary = (this.items.length &&
       (this.secondaryPlaceholder == '' || this.secondaryPlaceholder));
-  return useSecondary ? this.secondaryPlaceholder : this.placeholder;
+  return useSecondary ? this.placeholder : this.secondaryPlaceholder;
 };
 
 /**
@@ -747,7 +741,6 @@ MdChipsCtrl.prototype.hasFocus = function () {
    *    the delete key will remove the chip.
    * @param {string=} delete-button-label A label for the delete button. Also hidden and read by
    *    screen readers.
-   * @param {expression=} md-separator-keys An array of key codes used to separate chips.
    *
    * @usage
    * <hljs lang="html">
@@ -846,7 +839,6 @@ MdChipsCtrl.prototype.hasFocus = function () {
         onSelect: '&mdOnSelect',
         deleteHint: '@',
         deleteButtonLabel: '@',
-        separatorKeys: '=?mdSeparatorKeys',
         requireMatch: '=?mdRequireMatch'
       }
     };
@@ -1043,7 +1035,7 @@ angular
  * returns  a list of possible contacts. The user can select one of these and add it to the list of
  * chips.
  *
- * You may also use the `md-highlight-text` directive along with its parameters to control the
+ * You may also use the `md-highlight-text` directive along with it's parameters to control the
  * appearance of the matched text inside of the contacts' autocomplete popup.
  *
  * @param {string=|object=} ng-model A model to bind the list of items to
@@ -1051,8 +1043,7 @@ angular
  * @param {string=} secondary-placeholder Placeholder text that will be forwarded to the input,
  *    displayed when there is at least on item in the list
  * @param {expression} md-contacts An expression expected to return contacts matching the search
- *    test, `$query`. If this expression involves a promise, a loading bar is displayed while
- *    waiting for it to resolve.
+ *    test, `$query`.
  * @param {string} md-contact-name The field name of the contact object representing the
  *    contact's name.
  * @param {string} md-contact-email The field name of the contact object representing the
@@ -1061,8 +1052,9 @@ angular
  *    contact's image.
  *
  *
+ * // The following attribute has been removed but may come back.
  * @param {expression=} filter-selected Whether to filter selected contacts from the list of
- *    suggestions shown in the autocomplete. This attribute has been removed but may come back.
+ *    suggestions shown in the autocomplete.
  *
  *
  *

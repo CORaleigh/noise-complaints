@@ -30,7 +30,6 @@ module.exports = function(config) {
       'app/components/angular-touch/angular-touch.js',
       'app/components/angular-scroll/angular-scroll.js',
       'app/components/angular-aria/angular-aria.js',
-      'app/components/angular-messages/angular-messages.js',
       'app/components/angular-material/angular-material.js',
       'app/components/momentjs/moment.js',
       'app/components/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js',

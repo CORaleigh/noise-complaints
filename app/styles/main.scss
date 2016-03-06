@@ -9,6 +9,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   padding: 0.2em 0;
 }
 
+.md-dialog-container {
+  position: fixed;
+}
+
 .navbar {
   margin: 0;
 }
