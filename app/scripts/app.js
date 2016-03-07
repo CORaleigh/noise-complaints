@@ -20,7 +20,9 @@ angular
     'ngMaterial',
     'ngMaterialDatePicker'
   ])
-  .config(function ($routeProvider, $httpProvider) {
+  .config(function ($routeProvider, $httpProvider, $mdThemingProvider) {
+  // $mdThemingProvider.theme('default')
+  //   .dark();    
 $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';    
     $routeProvider
       .when('/', {
