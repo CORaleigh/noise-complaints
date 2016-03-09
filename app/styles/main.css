@@ -1,0 +1,17 @@
+.md-dialog-container {
+  position: fixed;
+}
+.alert911 {
+	color: rgb(255,87,34);
+    margin: 6px 8px;
+    line-height: 36px;
+    min-height: 36px;
+    background: transparent;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;	
+}
