@@ -19,8 +19,11 @@ angular
     'ngMaterial',
     'ngMaterialDatePicker',
     'ngMessages'
-  ]).config(function ($routeProvider, $httpProvider) {  
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';    
+  ])
+  .config(function ($routeProvider, $httpProvider, $mdThemingProvider) {
+  // $mdThemingProvider.theme('default')
+  //   .dark();    
+$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';    
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

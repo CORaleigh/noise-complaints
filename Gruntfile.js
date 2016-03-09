@@ -1,4 +1,4 @@
-// Generated on 2016-03-08 using generator-angular 0.15.1
+// Generated on 2016-02-25 using generator-angular 0.15.1
 'use strict';
 
 // # Globbing
@@ -47,10 +47,6 @@ module.exports = function (grunt) {
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
-      },
-      styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'postcss']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -219,8 +215,14 @@ module.exports = function (grunt) {
               }
             }
           }
+      },
+      sass: {
+        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     }, 
+
+
 
     // Renames files for browser caching purposes
     filerev: {
@@ -387,6 +389,11 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: '.',
+          src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {
@@ -400,13 +407,10 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
       ],
       test: [
-        'copy:styles'
       ],
       dist: [
-        'copy:styles',
         'imagemin',
         'svgmin'
       ]

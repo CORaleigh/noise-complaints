@@ -1,6 +1,6 @@
 <div ng-init="showSplash($event, 'Information submitted on the Online HDEP Complaint Form is a public record and will be shared with the Police Department, bar/club management and neighborhood leaders.', 'Disclaimer')">
   <md-toolbar md-scroll-shrink>
-    <div class="md-toolbar-tools">Online HDEP Complaint Form</div>
+    <div class="md-toolbar-tools">Online Noise Complaint Form</div>
   </md-toolbar>
   <div class="">
     <div id="map" style="height:300px; width:100%; "></div>
@@ -21,7 +21,7 @@
       <h2 class="md-title">2. To resolve your complaint the City of Raleigh encourages you to contact the business directly at</h2>
       <a ng-href="tel:1-{{establishment.attributes.PHONE}}"><h2>{{establishment.attributes.PHONE}}</h2></a>
 
-      <span class="md-body-2">(Manager is {{establishment.attributes.CONTACT}})</span> 
+      <span class="md-body-2">(Manager {{establishment.attributes.CONTACT}})</span> 
 
 
     <span class="alert911">
@@ -74,7 +74,6 @@ If this is an emergency please call 911
             <div ng-message="required">This is required.</div>
           </div>    
         </md-input-container>   
-        
         <br/>
         <div layout="column">
           <md-checkbox 
