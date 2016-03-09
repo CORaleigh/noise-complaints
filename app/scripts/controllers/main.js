@@ -76,7 +76,8 @@ angular.module('noiseComplaintsApp')
   $scope.submitForm = function (complaintant, establishment) {
     var features = [[
       {attributes: {
-        BUSINESSOID: establishment.OBJECTID,
+        BUSINESSOID: establishment.attributes.OBJECTID,
+        ESTABLISHMENT: establishment.attributes.ESTABLISHMENT,
         NAME: complaintant.name,
         PHONE: complaintant.phoneNumber,
         EMAIL: complaintant.email,
