@@ -20,7 +20,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'app/components/jquery/dist/jquery.js',
       'app/components/angular/angular.js',
       'app/components/angular-animate/angular-animate.js',
       'app/components/angular-cookies/angular-cookies.js',
@@ -28,12 +27,10 @@ module.exports = function(config) {
       'app/components/angular-route/angular-route.js',
       'app/components/angular-sanitize/angular-sanitize.js',
       'app/components/angular-touch/angular-touch.js',
-      'app/components/momentjs/moment.js',
-      'app/components/angular-aria/angular-aria.js',
-      'app/components/angular-messages/angular-messages.js',
-      'app/components/angular-material/angular-material.js',
-      'app/components/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js',
       'app/components/angular-scroll/angular-scroll.js',
+      'app/components/angular-messages/angular-messages.js',
+      'app/components/angular-aria/angular-aria.js',
+      'app/components/angular-material/angular-material.js',
       'app/components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

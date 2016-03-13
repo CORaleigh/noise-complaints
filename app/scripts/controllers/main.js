@@ -8,12 +8,15 @@ angular.module('noiseComplaintsApp')
     {label: 'Bass Effect'},
     {label: 'Other'}
   ];
-  $scope.maxDate = moment();
+  $scope.maxDate = new Date();//moment();
   $scope.scrollTo = function (div) {
     $timeout(function () {
       $anchorScroll(div);
     });
   };
+  $scope.hours = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+  $scope.minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40','45', '50', '55'];
+  $scope.ampms = ['am', 'pm'];
   $scope.showSplash = function (ev, message, title) {
     $mdDialog.show(
       $mdDialog.alert()
@@ -44,7 +47,7 @@ angular.module('noiseComplaintsApp')
   };
 
   var sendEmail = function () {
-    var emailContent = "Establishment: " + $scope.establishment.attributes.ESTABLISHMENT + "\n" + "Complaintant Name: " + $scope.complaintant.name + "\n" + "Complaintant Phone: " + $scope.complaintant.phoneNumber + "\n" + "Complaintant Email: " + $scope.complaintant.email  + "\n" + "Date: " + moment($scope.complaintant.date).format('MM/DD/YYYY')  + "\n" + "Time: " + moment($scope.complaintant.time).format('hh:mm a') + "\n" + "Loud Music: " + (($scope.complaintant.music) ? 'Yes' : 'No') + "\n" + "Crowd/Voices: " + (($scope.complaintant.crowd) ? 'Yes' : 'No') + "\n" + "Bass Effect: " + (($scope.complaintant.bass) ? 'Yes' : 'No') + "\n" + "Other: " + (($scope.complaintant.other) ? 'Yes' : 'No')+ "\n" + "Prior to filing this complaint did you contact the establishment?: " + $scope.complaintant.question4 + "\n" + "Did you speak with a member of management?: " + $scope.complaintant.question5 + "\n" + "Was your complaint resolved?: " + $scope.complaintant.question6;
+    var emailContent = "Establishment: " + $scope.establishment.attributes.ESTABLISHMENT + "\n" + "Complaintant Name: " + $scope.complaintant.name + "\n" + "Complaintant Phone: " + $scope.complaintant.phoneNumber + "\n" + "Complaintant Email: " + $scope.complaintant.email  + "\n" + "Date: " + ($scope.complaintant.date.getMonth() + 1) + '/' + $scope.complaintant.date.getDate() + '/' + $scope.complaintant.date.getFullYear()  + "\n" + "Time: " + $scope.complaintant.time.hour + ':' + $scope.complaintant.time.minute + ' ' + $scope.complaintant.time.ampm + "\n" + "Loud Music: " + (($scope.complaintant.music) ? 'Yes' : 'No') + "\n" + "Crowd/Voices: " + (($scope.complaintant.crowd) ? 'Yes' : 'No') + "\n" + "Bass Effect: " + (($scope.complaintant.bass) ? 'Yes' : 'No') + "\n" + "Other: " + (($scope.complaintant.other) ? 'Yes' : 'No')+ "\n" + "Prior to filing this complaint did you contact the establishment?: " + $scope.complaintant.question4 + "\n" + "Did you speak with a member of management?: " + $scope.complaintant.question5 + "\n" + "Was your complaint resolved?: " + $scope.complaintant.question6;
     var data = {from:"Hospitality District",fromEmail:"Hospitality@raleighnc.gov",to:"noiseofficer", toEmail:"justin.greco@raleighnc.gov",message:emailContent,subject:"Hospitality District - online complaint"};
     $http({
       url:'http://maps.raleighnc.gov/php/mail.php',
@@ -81,8 +84,8 @@ angular.module('noiseComplaintsApp')
         NAME: complaintant.name,
         PHONE: complaintant.phoneNumber,
         EMAIL: complaintant.email,
-        OCCUR_DATE: complaintant.date.getTime(),
-        OCCUR_TIME: moment(complaintant.time).format('hh:mm a'),
+        OCCUR_DATE: complaintant.date,
+        OCCUR_TIME: complaintant.time.hour + ':' + complaintant.time.minute + ' ' + complaintant.time.ampm,//moment(complaintant.time).format('hh:mm a'),
         CONTACTED: complaintant.question4,
         SPOKE: complaintant.question5,
         RESOLVED: complaintant.question6,
