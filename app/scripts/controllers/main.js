@@ -76,6 +76,26 @@ angular.module('noiseComplaintsApp')
     $scope.scrollTo('map');
   };
 
+  $scope.question4Answered = function () {
+    if ($scope.complaintant.question4 == 'Yes') {
+      $scope.scrollTo('question5');
+      $scope.complaintant.question5 = '';
+      $scope.complaintant.question6 = '';
+    } else {
+      $scope.scrollTo('submitButton');
+      $scope.complaintant.question5 = 'No';
+      $scope.complaintant.question6 = 'No';
+    }
+  }
+  $scope.question5Answered = function () {
+    if ($scope.complaintant.question4 == 'Yes') {
+      $scope.scrollTo('question6');
+      $scope.complaintant.question6 = '';
+    } else {
+      $scope.scrollTo('submitButton');
+      $scope.complaintant.question6 = 'No';
+    }
+  }
   $scope.submitForm = function (complaintant, establishment) {
     var features = [[
       {attributes: {
@@ -124,9 +144,11 @@ angular.module('noiseComplaintsApp')
     'esri/dijit/PopupTemplate',
     'dojo/on',
     'esri/renderers/SimpleRenderer',
+    'dijit/TooltipDialog',
+    'dijit/popup',
     'dojo/dom-construct',
     'dojo/domReady!'
-  ], function(Map, VectorTileLayer, FeatureLayer, Popup, PopupTemplate, on, SimpleRenderer, domConstruct) {
+  ], function(Map, VectorTileLayer, FeatureLayer, Popup, PopupTemplate, on, SimpleRenderer, TooltipDialog, dijitPopup, domConstruct) {
     map = new Map('map', {
       center: [-78.646, 35.785],
       zoom: 14
@@ -160,6 +182,27 @@ angular.module('noiseComplaintsApp')
       $scope.scrollTo('question2');
       $scope.$apply();
     });
+
+    // Show park name on hover
+    var tooltip = new TooltipDialog({ id: "tooltip"});
+    tooltip.startup();
+    on(businesses, 'mouse-over', showTooltip);
+    on(businesses, 'mouse-out', hideTooltip);
+    on(map, 'extent-change', hideTooltip);
+
+    function showTooltip(evt) {
+      var content = evt.graphic.attributes.ESTABLISHMENT + '<br/>' + evt.graphic.attributes.ADDRESS ;
+      tooltip.setContent(content);
+      dijitPopup.open({
+        popup: tooltip,
+        x: evt.pageX + 10,
+        y: evt.pageY + 10
+      });
+      return false;
+    }
+    function hideTooltip(evt) {
+      dijitPopup.close(tooltip);
+    }
     businesses.setRenderer(new SimpleRenderer({
       "type": "simple",
       "label": "",

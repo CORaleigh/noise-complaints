@@ -3,7 +3,7 @@
     <div class="md-toolbar-tools">Online Noise Complaint Form</div>
   </md-toolbar>
   <div class="">
-    <div id="map" style="height:300px; width:100%; "></div>
+    <div id="map" style="height:300px; width:100%; "><div id="tooltip"></div></div>
   </div>
   <div flex layout-padding layout-align="center center">
     <div id="question1" layout-align="center center" layout="column">
@@ -125,26 +125,26 @@ If this is an emergency please call 911
 </div>
 <div id="question4" ng-show="complaintant.question3 || complaintForm.input.$error" layout-align="center center" layout="column">
   <h2 class="md-title">4. Prior to filing this complaint did you contact the establishment?</h2>
-  <md-radio-group ng-model="complaintant.question4" ng-click="scrollTo('question5')">
+  <md-radio-group ng-model="complaintant.question4" ng-click="question4Answered()">
     <md-radio-button value="Yes" class="md-primary">Yes</md-radio-button>
     <md-radio-button value="No"> No </md-radio-button>
   </md-radio-group>
 </div>
-<div id="question5" ng-show="complaintant.question4" layout-align="center center" layout="column">
+<div id="question5" ng-show="complaintant.question4 =='Yes'" layout-align="center center" layout="column">
   <h2 class="md-title">5. Did you speak with a member of management?</h2>
-  <md-radio-group ng-model="complaintant.question5" ng-click="scrollTo('question6')">
+  <md-radio-group ng-model="complaintant.question5" ng-click="question5Answered()">
     <md-radio-button value="Yes" class="md-primary">Yes</md-radio-button>
     <md-radio-button value="No"> No </md-radio-button>
   </md-radio-group>
 </div>
-<div id="question6" ng-show="complaintant.question5" layout-align="center center" layout="column">
+<div id="question6" ng-show="complaintant.question5 =='Yes'" layout-align="center center" layout="column">
   <h2 class="md-title">6. Was your complaint resolved?</h2>
   <md-radio-group ng-model="complaintant.question6" ng-click="scrollTo('submitButton')">
     <md-radio-button value="Yes" class="md-primary">Yes</md-radio-button>
     <md-radio-button value="No"> No </md-radio-button>
   </md-radio-group>
 </div>
-<div layout-align="center center" layout="row" ng-show="complaintant.question6">
+<div layout-align="center center" layout="row" ng-show="complaintant.question6 || complaintant.question5 == 'No' || complaintant.question4 == 'No'">
   <md-button id="submitButton"  class="md-raised md-primary" ng-click="submitForm(complaintant, establishment)">Submit</md-button>
 </div>
 </div>
