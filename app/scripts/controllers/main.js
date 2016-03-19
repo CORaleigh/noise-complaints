@@ -188,7 +188,7 @@ angular.module('noiseComplaintsApp')
     tooltip.startup();
     on(businesses, 'mouse-over', showTooltip);
     on(businesses, 'mouse-out', hideTooltip);
-    on(map, 'extent-change', hideTooltip);
+    on(map, 'pan', hideTooltip);
 
     function showTooltip(evt) {
       var content = evt.graphic.attributes.ESTABLISHMENT + '<br/>' + evt.graphic.attributes.ADDRESS ;
