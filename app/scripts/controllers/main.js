@@ -50,7 +50,7 @@ angular.module('noiseComplaintsApp')
     var emailContent = "Establishment: " + $scope.establishment.attributes.ESTABLISHMENT + "\n" + "Complaintant Name: " + $scope.complaintant.name + "\n" + "Complaintant Phone: " + $scope.complaintant.phoneNumber + "\n" + "Complaintant Email: " + $scope.complaintant.email  + "\n" + "Date: " + ($scope.complaintant.date.getMonth() + 1) + '/' + $scope.complaintant.date.getDate() + '/' + $scope.complaintant.date.getFullYear()  + "\n" + "Time: " + $scope.complaintant.time.hour + ':' + $scope.complaintant.time.minute + ' ' + $scope.complaintant.time.ampm + "\n" + "Loud Music: " + (($scope.complaintant.music) ? 'Yes' : 'No') + "\n" + "Crowd/Voices: " + (($scope.complaintant.crowd) ? 'Yes' : 'No') + "\n" + "Bass Effect: " + (($scope.complaintant.bass) ? 'Yes' : 'No') + "\n" + "Other: " + (($scope.complaintant.other) ? 'Yes' : 'No')+ "\n" + "Prior to filing this complaint did you contact the establishment?: " + $scope.complaintant.question4 + "\n" + "Did you speak with a member of management?: " + $scope.complaintant.question5 + "\n" + "Was your complaint resolved?: " + $scope.complaintant.question6;
     var data = {from:"Hospitality District",fromEmail:"Hospitality@raleighnc.gov",to:"noiseofficer", toEmail:"justin.greco@raleighnc.gov",message:emailContent,subject:"Hospitality District - online complaint"};
     $http({
-      url:'http://maps.raleighnc.gov/php/mail.php',
+      url:'https://maps.raleighnc.gov/php/mail.php',
       method:"POST",
       params: data
     }).then(function (e) {     $scope.showSuccess(e, "Your complaint has been successfully sent!", "Submitted Successfully"); });
@@ -121,7 +121,7 @@ angular.module('noiseComplaintsApp')
       f: 'json'
     };
     $http({
-      url:'http://mapstest.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/2/addFeatures',
+      url:'https://maps.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/2/addFeatures',
       method:"POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -156,13 +156,13 @@ angular.module('noiseComplaintsApp')
     var tileLyr = new VectorTileLayer('http://tiles.arcgis.com/tiles/v400IkDOw1ad7Yad/arcgis/rest/services/Vector_Tile_Basemap/VectorTileServer/resources/styles/root.json'
   );
   map.addLayer(tileLyr);
-  var district = new FeatureLayer('http://mapstest.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/1');
+  var district = new FeatureLayer('https://maps.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/1');
   map.addLayer(district);
   var template = new PopupTemplate({
     title: '{ESTABLISHMENT}',
     description: '<md-content><md-button class="md-raised md-primary">File Complaint</md-button></md-content>'
   });
-  businesses = new FeatureLayer('http://mapstest.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/0',
+  businesses = new FeatureLayer('https://maps.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/0',
   { mode: FeatureLayer.MODE_SNAPSHOT,
     outFields: ['*']});
     map.addLayer(businesses);
