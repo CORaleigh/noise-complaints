@@ -151,7 +151,8 @@ angular.module('noiseComplaintsApp')
   ], function(Map, VectorTileLayer, FeatureLayer, Popup, PopupTemplate, on, SimpleRenderer, TooltipDialog, dijitPopup, domConstruct) {
     map = new Map('map', {
       center: [-78.646, 35.785],
-      zoom: 14
+      zoom: 14,
+      logo: false
     });
     var tileLyr = new VectorTileLayer('http://tiles.arcgis.com/tiles/v400IkDOw1ad7Yad/arcgis/rest/services/Vector_Tile_Basemap/VectorTileServer/resources/styles/root.json'
   );
