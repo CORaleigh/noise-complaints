@@ -26,7 +26,6 @@ module.exports = function(config) {
       'app/components/angular-resource/angular-resource.js',
       'app/components/angular-route/angular-route.js',
       'app/components/angular-sanitize/angular-sanitize.js',
-      'app/components/angular-touch/angular-touch.js',
       'app/components/angular-scroll/angular-scroll.js',
       'app/components/angular-messages/angular-messages.js',
       'app/components/angular-aria/angular-aria.js',

@@ -15,7 +15,6 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
     'ngMaterial',
     'ngMessages'
   ])
@@ -191,8 +190,7 @@ angular.module('noiseComplaintsApp')
       logo: false
     });
 
-    var tileLyr = new VectorTileLayer('http://tiles.arcgis.com/tiles/v400IkDOw1ad7Yad/arcgis/rest/services/Vector_Tile_Basemap/VectorTileServer/resources/styles/root.json'
-  );
+  var tileLyr = new VectorTileLayer('http://tiles.arcgis.com/tiles/v400IkDOw1ad7Yad/arcgis/rest/services/Vector_Tile_Basemap/VectorTileServer/resources/styles/root.json');
   map.addLayer(tileLyr);
   var district = new FeatureLayer('https://maps.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/1');
   map.addLayer(district);
@@ -200,10 +198,7 @@ angular.module('noiseComplaintsApp')
     title: '{ESTABLISHMENT}',
     description: '<md-content><md-button class="md-raised md-primary">File Complaint</md-button></md-content>'
   });
-  var geoLocate = new LocateButton({
-    map: map
-  }, "LocateButton");
-  geoLocate.startup();
+
   businesses = new FeatureLayer('https://maps.raleighnc.gov/arcgis/rest/services/Police/HospitalityDistrict/FeatureServer/0',
   { mode: FeatureLayer.MODE_SNAPSHOT,
     outFields: ['*']});
@@ -264,6 +259,10 @@ angular.module('noiseComplaintsApp')
           "style": "esriSLSSolid"
         }
       }}));
+      // var geoLocate = new LocateButton({
+      //   map: map
+      // }, "LocateButton");
+      // geoLocate.startup();
     });
   }]);
 
