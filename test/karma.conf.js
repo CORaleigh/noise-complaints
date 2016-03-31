@@ -30,6 +30,7 @@ module.exports = function(config) {
       'app/components/angular-messages/angular-messages.js',
       'app/components/angular-aria/angular-aria.js',
       'app/components/angular-material/angular-material.js',
+      'app/components/moment/moment.js',
       'app/components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
