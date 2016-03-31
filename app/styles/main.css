@@ -25,3 +25,9 @@
   font-size: 10pt;
   max-width: 150px;
 }
+#LocateButton {
+  position: absolute;
+  top: 145px;
+  left: 20px;
+  z-index: 50;
+}
