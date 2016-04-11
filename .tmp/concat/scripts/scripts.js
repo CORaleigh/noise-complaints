@@ -82,7 +82,7 @@ angular.module('noiseComplaintsApp')
 
   var sendEmail = function () {
     var emailContent = "Establishment: " + $scope.establishment.attributes.ESTABLISHMENT + "\n" + "Complaintant Name: " + $scope.complaintant.name + "\n" + "Complaintant Phone: " + $scope.complaintant.phoneNumber + "\n" + "Complaintant Email: " + $scope.complaintant.email  + "\n" + "Date: " + ($scope.complaintant.date.getMonth() + 1) + '/' + $scope.complaintant.date.getDate() + '/' + $scope.complaintant.date.getFullYear()  + "\n" + "Time: " + $scope.complaintant.time.hour + ':' + $scope.complaintant.time.minute + ' ' + $scope.complaintant.time.ampm + "\n" + "Loud Music: " + (($scope.complaintant.music) ? 'Yes' : 'No') + "\n" + "Crowd/Voices: " + (($scope.complaintant.crowd) ? 'Yes' : 'No') + "\n" + "Bass Effect: " + (($scope.complaintant.bass) ? 'Yes' : 'No') + "\n" + "Other: " + (($scope.complaintant.other) ? 'Yes' : 'No')+ "\n" + "Prior to filing this complaint did you contact the establishment?: " + $scope.complaintant.question4 + "\n" + "Did you speak with a member of management?: " + $scope.complaintant.question5 + "\n" + "Was your complaint resolved?: " + $scope.complaintant.question6;
-    var data = {from:"Hospitality District",fromEmail:"Hospitality@raleighnc.gov",to:"noiseofficer", toEmail:"Justin.Greco@raleighnc.gov,gis@raleighnc.gov",message:emailContent,subject:"Hospitality District - online complaint"};
+    var data = {from:"Hospitality District",fromEmail:"Hospitality@raleighnc.gov",to:"noiseofficer", toEmail:"Noise.Officer@raleighnc.gov,gis@raleighnc.gov",message:emailContent,subject:"Hospitality District - online complaint"};
     $http({
       url:'https://maps.raleighnc.gov/php/mail.php',
       method:"POST",
@@ -131,6 +131,8 @@ angular.module('noiseComplaintsApp')
     }
   }
   $scope.submitForm = function (complaintant, establishment) {
+    complaintant.date.setHours((complaintant.time.ampm === 'am') ? parseInt(complaintant.time.hour) : parseInt(complaintant.time.hour) + 12);
+    complaintant.date.setMinutes(parseInt(complaintant.time.minute));
     var features = [[
       {attributes: {
         BUSINESSOID: establishment.attributes.OBJECTID,
@@ -138,7 +140,7 @@ angular.module('noiseComplaintsApp')
         NAME: complaintant.name,
         PHONE: complaintant.phoneNumber,
         EMAIL: complaintant.email,
-        OCCUR_DATE: moment(complaintant.date).format('MM/DD/YYYY'),
+        OCCUR_DATE: complaintant.date.getTime(),
         OCCUR_TIME: complaintant.time.hour + ':' + complaintant.time.minute + ' ' + complaintant.time.ampm,//moment(complaintant.time).format('hh:mm a'),
         CONTACTED: complaintant.question4,
         SPOKE: complaintant.question5,
